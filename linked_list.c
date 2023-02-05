@@ -23,46 +23,51 @@ linked_list *new_linked_list(int data){
 	l->head=a;
 	return l;
 }
-void traversal(linked_list *l){
-	node *temp = l->head;
-	while(temp != NULL){
-		printf("%d\t",temp->data);
-		temp = temp->next;
-	}
-	printf("\n");
-}
-void insert_at_beginning(linked_list *l,node *n){
-	n->next=l->head;
-	l->head=n;
-}
-void insert_at_end(linked_list *l, node *n){
-	node *temp = l->head;
-	while(temp -> next != NULL){
-		temp = temp->next;
-	}
-	temp->next= n;
-}
-void insert_at_after(node *n,node *a){
-	n->next=a->next;
-	a->next=n;
-}
-
-void del(linked_list *l,node *n){
-	node *temp=l->head;
-	if(temp ==n){
-		l->head=n->next;
-		free(n);
-	}else{
+//show linked list
+	void traversal(linked_list *l){
+		node *temp = l->head;
+		int i=0;
 		while(temp != NULL){
-			if(temp->next==n){
-				temp->next=n->next;
-				free(n);
-				break;
-			}
+			printf("%d\t %d\n",temp->data,i);
+			i++;
 			temp = temp->next;
 		}
+		printf("\n");
 	}
-}
+//add extra node
+	void insert_at_beginning(linked_list *l,node *n){
+		n->next=l->head;
+		l->head=n;
+	}
+	void insert_at_end(linked_list *l, node *n){
+		node *temp = l->head;
+		while(temp -> next != NULL){
+			temp = temp->next;
+		}
+		temp->next= n;
+	}
+	void insert_at_after(node *n,node *a){
+		n->next=a->next;
+		a->next=n;
+	}
+//delete node
+	void del(linked_list *l,node *n){
+		node *temp=l->head;
+		if(temp ==n){
+			l->head=n->next;
+			free(n);
+		}else{
+			while(temp != NULL){
+				if(temp->next==n){
+					temp->next=n->next;
+					free(n);
+					break;
+				}
+				temp = temp->next;
+			}
+		}
+	}
+
 int main(){
 	linked_list *l=new_linked_list(10);
 	node *a,*b,*c;
@@ -72,7 +77,6 @@ int main(){
 	l->head->next=a;
 	a->next=b;
 	b->next= c;
-	
 	
 	node *z;
 //	inserting from starting side
@@ -87,12 +91,12 @@ int main(){
 //	inserting from any where 
 	z= new_node(-55);
 	insert_at_after(z,c->next->next);
-	printf("first calling =>\t");
+	printf("\n-----------------first calling =>\n");
 	traversal(l);
 	del(l,l->head);
-	printf("after delete calling =>\t");
+	printf("\n-----------------after delete calling =>\n");
 	traversal(l);
 	del(l,z);
-	printf("after 2 delete calling =>\t");
+	printf("\n-----------------after 2 delete calling =>\n");
 	traversal(l);
 }
