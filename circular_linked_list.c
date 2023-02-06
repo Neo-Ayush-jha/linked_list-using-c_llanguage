@@ -46,7 +46,7 @@ int main(){
 	insert_end(l,z);
 	show(l);
 		
-	del(l,a);
+	del(l,c);
 	show(l);
 }
 
@@ -95,6 +95,9 @@ void insert_end(link_list *l,node *n){
 
 void del(link_list *l, node *n){
 	node *temp =l->head;
+	while(temp->next!=n){
+		temp=temp->next;
+	}
 	if(n==l->head){
 		if(n==l->head->next){
 			l->head=NULL;
